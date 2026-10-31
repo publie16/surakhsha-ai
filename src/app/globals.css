@@ -2,26 +2,122 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "leaflet/dist/leaflet.css";
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #3E2F2F;
+  --surface: #2E2323;
+  --foreground: #F3E3DA;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #3E2F2F;
+  color: #F3E3DA;
+  overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(46, 35, 35, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card:hover {
+  border-color: rgba(217, 160, 124, 0.3);
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background-color: #231B1B !important;
+  font-family: inherit;
+}
+
+/* Invert and tone OSM tile layer for dark theme without affecting markers, routes, or popups */
+.leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.92) saturate(0.65);
+}
+
+.leaflet-control-zoom a {
+  background-color: #2E2323 !important;
+  color: #F3E3DA !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: #3E2F2F !important;
+  color: #D9A07C !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(46, 35, 35, 0.7) !important;
+  color: rgba(243, 227, 218, 0.6) !important;
+  font-size: 10px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #D9A07C !important;
+}
+
+/* Custom Marker styles */
+.custom-pin-origin {
+  background: #4ADE80;
+  border: 3px solid #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgba(74, 222, 128, 0.8);
+}
+
+.custom-pin-dest {
+  background: #EF4444;
+  border: 3px solid #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.8);
+}
+
+.custom-user-dot {
+  background: #38BDF8;
+  border: 3px solid #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.9);
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
   }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 12px rgba(56, 189, 248, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #2E2323;
+}
+::-webkit-scrollbar-thumb {
+  background: #B8663F;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D9A07C;
 }
